@@ -1,20 +1,16 @@
 import { Textarea } from "./ui/textarea";
-
-interface bodyProps {
-    handleBodyChange: (body: string) => void;
-    isActive: boolean;
-    }
-function RequestBody({ handleBodyChange, isActive }: bodyProps) {
+import { useBodyStore } from "../context/bodyStore";
+import { useHttpMethodStore } from "../context/httpMethodStore";
+function RequestBody() {
+  const {setBody} = useBodyStore();
+  const {method} = useHttpMethodStore();
   return (
-    <div>
-      <h2 className="text-lg font-semibold mb-2">Request Body:</h2>
       <Textarea
         placeholder="Enter request body in JSON format"
-        className=" p-4 rounded-md overflow-auto h-120 resize-none"
-        onChange={(e) => handleBodyChange(e.target.value)}
-        disabled={!isActive}
+        className=" p-4 rounded-md overflow-auto h-full resize-none"
+        onChange={(e) => setBody(e.target.value)}
+        disabled={method === "GET" || method === "DELETE"}
       />
-    </div>
   );
 }
 export default RequestBody;

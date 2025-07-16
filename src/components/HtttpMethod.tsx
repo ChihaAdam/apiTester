@@ -7,21 +7,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-
-export function HttpMethod({
-  handleMethodChange,
-}: {
-  handleMethodChange: (method: string) => void;
-}) {
+import { useHttpMethodStore } from "../context/httpMethodStore.ts"
+import type { httpMethod } from "../context/httpMethodStore.ts";
+export function HttpMethod() {
+  const {setMethod} = useHttpMethodStore();
   return (
-    <Select defaultValue="GET" onValueChange={handleMethodChange}>
+    <Select defaultValue="GET" onValueChange={(e)=> setMethod(e as httpMethod)}>
       <SelectTrigger className="w-[180px] max-md:w-full" >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup className="font-bold">
           <SelectLabel className="font-semibold">methods</SelectLabel>
-          <SelectItem value="GET" className="text-green-800">
+          <SelectItem value="GET" className="text-green-700">
             GET
           </SelectItem>
           <SelectItem value="POST" className="text-yellow-800">

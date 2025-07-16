@@ -1,9 +1,12 @@
 import UrlEnter from "./components/UrlEnter";
 import { useState } from "react";
 import Response from "./components/Response";
-import RequestBody from "./components/RequestBody";
+import RequestInfo from "./components/RequestInfo";
 import { Moon } from "lucide-react";
 import useFetch from "./hooks/useFetch";
+import { useBodyStore } from "./context/bodyStore";
+import { useHttpMethodStore } from "./context/httpMethodStore.ts";
+import { useHeadersStore } from "./context/headersStore";
 import {
   ResizableHandle,
   ResizablePanelGroup,
@@ -12,16 +15,14 @@ import {
 import Error from "./components/Error";
 function App() {
   const [url, setUrl] = useState("");
-  const [method, setMethod] = useState("GET");
-  const [body, setBody] = useState("");
+  const {method} = useHttpMethodStore();
+  const {body} = useBodyStore();
+  const {headers} = useHeadersStore();
+  // State to manage dark mode
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const handleUrlChange = (newUrl: string) => {
-    setUrl(newUrl);
-  };
-  const handleMethodChange = (method: string) => {
-    setMethod(method);
-  };
-  const { fetchData, loading, error, response } = useFetch(url, method, body);
+  // Fetch data using the custom hook
+  // Pass the body and headers to the fetchData function
+  const { fetchData, loading, error, response } = useFetch(url, method,headers,body);
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle("dark", !isDarkMode);
@@ -41,17 +42,13 @@ function App() {
         Enter a URL to test the API endpoint.
       </p>
       <UrlEnter
-        handleUrlChange={handleUrlChange}
-        handleMethodChange={handleMethodChange}
+        handleUrlChange={setUrl}
         handleRequest={fetchData}
         isLoading={loading}
       />
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel className="w-1/2">
-          <RequestBody
-            handleBodyChange={setBody}
-            isActive={method !== "GET" && method !== "DELETE"}
-          />
+          <RequestInfo />
         </ResizablePanel>
         <ResizableHandle className="mx-1" />
         <ResizablePanel className="w-1/2">

@@ -20,11 +20,11 @@ const darkTheme = {
 function Response({ response }: { response: string }) {
   const isDark = document.documentElement.classList.contains("dark");
   return (
-    <div>
+    <div className="h-130">
       <h2 className="text-lg font-semibold mb-2">Response:</h2>
       <JSONPretty
         data={response}
-        className="p-4 border-input border-1 rounded-md overflow-auto h-120 resize-none dark:bg-input/30"
+        className="p-4 border-input border-1 rounded-md overflow-auto h-full resize-none dark:bg-input/30"
         theme={isDark ? darkTheme : lightTheme}
       />
     </div>

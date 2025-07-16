@@ -1,6 +1,5 @@
 import UrlEnter from "./components/UrlEnter";
 import { useState } from "react";
-import { requestHandler } from "./lib/requestHandler";
 import Response from "./components/Response";
 import RequestBody from "./components/RequestBody";
 import { Moon } from "lucide-react";

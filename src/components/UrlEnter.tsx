@@ -10,16 +10,16 @@ interface UrlEnterProps {
 function UrlEnter({handleUrlChange, handleMethodChange, handleRequest,isLoading}: UrlEnterProps) {
  
   return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 max-md:flex-col max-md:items-start my-2">
         <HttpMethod handleMethodChange={handleMethodChange}/>
         <Input
           type="text"
           placeholder="Enter URL"
-          className="w-full"
+          className="md:w-full"
           onChange={(e) => handleUrlChange(e.target.value)}
         />
         <Button
-          className="dark:bg-white dark:text-black hover:dark:bg-gray-200 hover:bg-gray-600 cursor-pointer disabled:cursor-not-allowed transition-all duration-200 ease-in-out"
+          className="dark:bg-white dark:text-black hover:dark:bg-gray-200 hover:bg-gray-600 cursor-pointer disabled:cursor-not-allowed transition-all duration-200 ease-in-out max-md:w-full"
           onClick={handleRequest}
           disabled={isLoading}
         >

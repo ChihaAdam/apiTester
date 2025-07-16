@@ -15,7 +15,7 @@ export function HttpMethod({
 }) {
   return (
     <Select defaultValue="GET" onValueChange={handleMethodChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px] max-md:w-full" >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
